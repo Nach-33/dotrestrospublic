@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+const frontendLink = "https://dot-restros.netlify.app/";
+
 router.get('/logout', (req, res) => {
-    res.send('logging out');
+    req.logout();
+    res.redirect(frontendLink);
 });
 
 router.get('/google', passport.authenticate('google', {

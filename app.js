@@ -5,6 +5,9 @@ const cors = require('cors');
 const dbconnect = require("./db/connect");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
+
+const authMiddleware = require("./middlewares/auth-middleware")
+
 const orderRoutes = require("./routes/order-routes");
 const authRoutes = require("./routes/auth-routes");
 const userRoutes = require("./routes/user-routes");
@@ -31,12 +34,10 @@ app.use(
   })
 );
 
-app.use("/orders/", orderRoutes);
 app.use("/auth/", authRoutes);
-app.use("/user/", userRoutes);
-app.use("/reviews/", reviewsRoutes);
-
-
+app.use("/orders/",authMiddleware, orderRoutes);
+app.use("/user/",authMiddleware, userRoutes);
+app.use("/reviews/",authMiddleware, reviewsRoutes);
 
 const port = process.env.PORT;
 const mongoURI = process.env.MONGO_URI;
