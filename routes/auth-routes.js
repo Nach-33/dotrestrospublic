@@ -13,7 +13,7 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 router.get('/redirect', passport.authenticate('google'), (req, res) => {
-    res.redirect('/user/profile');
+    res.redirect(frontendLink);
 });
 
 
