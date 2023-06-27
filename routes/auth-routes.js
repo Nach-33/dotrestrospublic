@@ -1,20 +1,29 @@
-const router = require('express').Router();
-const passport = require('passport');
+const router = require("express").Router();
+const passport = require("passport");
+require('dotenv').config();
+const frontendLink = process.env.FRONTEND_URI;
 
-const frontendLink = "https://dot-restros.netlify.app/";
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["profile"],
+  })
+);
 
-router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect(frontendLink);
+router.get("/redirect", passport.authenticate("google"), (req, res) => {
+  res.redirect(frontendLink);
 });
 
-router.get('/google', passport.authenticate('google', {
-    scope: ['profile']
-}));
-
-router.get('/redirect', passport.authenticate('google'), (req, res) => {
-    res.redirect('/user/profile');
+router.get("/status", (req, res) => {
+  if (req.user) {
+    console.log(res.user);
+    res.json({ loggedIn: true });
+  } else res.json({ loggedIn: false });
 });
 
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect(frontendLink);
+});
 
 module.exports = router;
