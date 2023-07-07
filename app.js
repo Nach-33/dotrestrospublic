@@ -11,6 +11,7 @@ const orderRoutes = require("./routes/order-routes");
 const authRoutes = require("./routes/auth-routes");
 const userRoutes = require("./routes/user-routes");
 const reviewsRoutes = require("./routes/reviews-routes");
+const restaurantRoutes = require("./routes/restaurant-routes");
 const passportSetup = require("./config/passport-setup");
 require("dotenv").config();
 
@@ -38,6 +39,7 @@ app.use("/auth/", authRoutes);
 app.use("/orders/", authMiddleware, orderRoutes);
 app.use("/user/", authMiddleware, userRoutes);
 app.use("/reviews/", authMiddleware, reviewsRoutes);
+app.use("/restaurants/", restaurantRoutes);
 
 const port = process.env.PORT;
 const mongoURI = process.env.MONGO_URI;

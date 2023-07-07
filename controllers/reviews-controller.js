@@ -1,4 +1,5 @@
 const Review = require("../models/reviews-models");
+const Restaurant  =require("../models/restuarants-model");
 
 const getAllReviews = async (req, res) => {
   try {
@@ -49,13 +50,27 @@ const createReview = async (req, res) => {
   try {
     const user = req.user;
     const reviewDetails = req.body;
+    await Restaurant.findOneAndUpdate(
+      { 'name': reviewDetails.restaurant.name },
+      {
+        $set: {
+          ratings: {
+            overall:overall*numberOfRatings+reviewDetails.ratings.overall ,
+            staff:staff*numberOfRatings+reviewDetails.ratings.staff ,
+            food:food*numberOfRatings+reviewDetails.ratings.food ,
+            ambience:ambience*numberOfRatings+reviewDetails.ratings.ambience ,
+            services:services*numberOfRatings+reviewDetails.ratings.services,
+            numberOfRatings:numberOfRatings+1,
+          },
+        },
+      }
+    );
     reviewDetails.userDetails = {
       username: user.username,
       userId: user.id,
     };
-    console.log(reviewDetails);
-    const reviewList = await Review.create(reviewDetails);
-    res.json(reviewList);
+    const review = await Review.create(reviewDetails);
+    res.json(review);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

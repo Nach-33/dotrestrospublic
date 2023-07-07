@@ -45,8 +45,19 @@ const orderSchema = mongoose.Schema({
   },
   orderDetails: {
     type: Array,
-    // required: true,
     default:[]
+  },
+  person:{
+    type: String,
+    default:"1",
+  },
+  combo:{
+    type: String,
+    default:"none"
+  },
+  instruction:{
+    type: String,
+    default:"none"
   },
   paid: {
     type: Boolean,
