@@ -7,7 +7,7 @@ router.post("/add", async (req, res) => {
     res.json({ message: "successfully created", newRestaurant });
   } catch (error) {
     console.log(error);
-    res.statusCode(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

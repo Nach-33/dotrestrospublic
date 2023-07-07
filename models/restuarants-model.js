@@ -15,12 +15,10 @@ const restaurantSchema = mongoose.Schema({
       name: {
         type: String,
         required: true,
-        unique: true,
       },
       price: {
         type: Number,
         required: true,
-        unique: true,
       },
     },
   ],
@@ -28,28 +26,30 @@ const restaurantSchema = mongoose.Schema({
     type: Object,
     overall: {
       type: Number,
-      default: 0,
     },
     staff: {
       type: Number,
-      default: 0,
     },
     food: {
       type: Number,
-      default: 0,
     },
     ambience: {
       type: Number,
-      default: 0,
     },
     services: {
       type: Number,
-      default: 0,
     },
     numberOfRatings: {
       type: Number,
-      default: 0,
     },
+    default:{
+      overall:0,
+      staff:0,
+      food:0,
+      ambience:0,
+      services:0,
+      numberOfRatings:0
+    }
   },
 });
 
