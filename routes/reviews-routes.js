@@ -5,7 +5,7 @@ const {
   findReviewByUserId,
   getUserReviews,
   createReview,
-} = require("../controllers/reviews-controller");
+} = require("../controllers/reviews-controllers");
 
 router.get("/all", getAllReviews);
 

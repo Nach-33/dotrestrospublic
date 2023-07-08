@@ -5,7 +5,7 @@ const {
   cancelOrderById,
   orderPayment,
   getAllOrders,
-} = require("../controllers/order-controllers");
+} = require("../controllers/orders-controllers");
 
 router.post("/send", sendNewOrder);
 

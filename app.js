@@ -7,11 +7,11 @@ const passport = require("passport");
 
 const authMiddleware = require("./middlewares/auth-middleware");
 
-const orderRoutes = require("./routes/order-routes");
+const orderRoutes = require("./routes/orders-routes");
 const authRoutes = require("./routes/auth-routes");
-const userRoutes = require("./routes/user-routes");
+const userRoutes = require("./routes/users-routes");
 const reviewsRoutes = require("./routes/reviews-routes");
-const restaurantRoutes = require("./routes/restaurant-routes");
+const restaurantRoutes = require("./routes/restaurants-routes");
 const passportSetup = require("./config/passport-setup");
 require("dotenv").config();
 
