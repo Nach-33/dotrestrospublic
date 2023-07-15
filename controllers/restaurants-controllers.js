@@ -1,4 +1,6 @@
 const Restaurant = require("../models/restuarants-model");
+const io = require('../app')
+
 
 const createRestaurant = async (req, res) => {
   try {
@@ -13,6 +15,8 @@ const createRestaurant = async (req, res) => {
 
 const getAllRestaurants = async (req, res) => {
   try {
+    
+    global.io.sockets.emit('check',{newOrder:true})
     const restaurants = await Restaurant.find({});
     if (!restaurants) {
       return res.json({ message: "no restaurant found" });

@@ -4,6 +4,8 @@ const cors = require("cors");
 const dbconnect = require("./db/connect");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
+var http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
 const authMiddleware = require("./middlewares/auth-middleware");
 
@@ -31,9 +33,14 @@ app.enable("trust proxy");
 app.use(
   cors({
     credentials: true,
-    origin: frontendLink,
+    origin: [frontendLink],
   })
 );
+
+// io.sockets.on("connection", function (socket) {
+//   console.log("Server-Client Connected!");
+// });
+global.io = io;
 
 app.use("/auth/", authRoutes);
 app.use("/orders/", authMiddleware, orderRoutes);
@@ -45,8 +52,14 @@ const port = process.env.PORT;
 const mongoURI = process.env.MONGO_URI;
 const startServer = async () => {
   await dbconnect(mongoURI);
-  app.listen(port, () => {
+  // app.listen(port, () => {
+  //   console.log(`Server listening on port ${port}`);
+  // });
+  http.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
 };
 startServer();
+
+
+// module.exports = io;

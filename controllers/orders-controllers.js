@@ -1,10 +1,7 @@
 const Order = require("../models/orders-model");
 const User = require("../models/users-model");
 require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
-const allRestaurantPrices = require("../data/restaurant-price-details");
-const {SendMail}=require("../nodemailer");
-const { findByIdAndUpdate } = require("../models/orders-model");
+const { SendMail } = require("../nodemailer");
 
 const sendNewOrder = async (req, res) => {
   try {
@@ -22,8 +19,11 @@ const sendNewOrder = async (req, res) => {
         },
       }
     );
+      // Move this to post payment
+    global.io.sockets.emit("check", { newOrder: true });
+
     res.send([newOrder, user]);
-    SendMail(newOrder)
+    SendMail(newOrder);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -95,18 +95,20 @@ const orderPayment = async (req, res) => {
   //   res.status(500).json({ message: error.message });
   // }
 
-  const data= await User.findOne({username:req.user.username})
-  if(data.admin){
+  const data = await User.findOne({ username: req.user.username });
+  if (data.admin) {
     try {
-      console.log(req.params.id)
-      const task=await Order.findByIdAndUpdate({_id:req.params.id},{paid:true},{new:true})
-      return res.send(task)
+      console.log(req.params.id);
+      const task = await Order.findByIdAndUpdate(
+        { _id: req.params.id },
+        { paid: true },
+        { new: true }
+      );
+      return res.send(task);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }else res.json({msg:"Pls go back to coustmer side"}) 
-
-
+  } else res.json({ msg: "Pls go back to coustmer side" });
 };
 
 const getAllOrders = async (req, res) => {
