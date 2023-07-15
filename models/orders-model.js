@@ -30,6 +30,18 @@ const orderSchema = mongoose.Schema({
       type: String,
       required: true,
     },
+    person:{
+      type: String,
+      default:"1",
+    },
+    combo:{
+      type: String,
+      default:"none"
+    },
+    instruction:{
+      type: String,
+      default:"none"
+    },
   },
   restaurant: {
     type: Object,
@@ -46,18 +58,6 @@ const orderSchema = mongoose.Schema({
   orderDetails: {
     type: Array,
     default:[]
-  },
-  person:{
-    type: String,
-    default:"1",
-  },
-  combo:{
-    type: String,
-    default:"none"
-  },
-  instruction:{
-    type: String,
-    default:"none"
   },
   paid: {
     type: Boolean,
