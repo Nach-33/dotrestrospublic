@@ -37,7 +37,7 @@ app.use(
 
 app.use("/auth/", authRoutes);
 app.use("/orders/", authMiddleware, orderRoutes);
-app.use("/user/", authMiddleware, userRoutes);
+app.use("/users/", authMiddleware, userRoutes);
 app.use("/reviews/", authMiddleware, reviewsRoutes);
 app.use("/restaurants/", restaurantRoutes);
 

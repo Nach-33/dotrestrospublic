@@ -5,8 +5,8 @@ const {
   getRestaurantDetails,
 } = require("../controllers/restaurants-controllers");
 
-router.post("/add", createRestaurant);
+router.post("/", createRestaurant);
 
-router.get("/find/:id", getRestaurantDetails);
+router.get("/:id", getRestaurantDetails);
 
 module.exports = router;

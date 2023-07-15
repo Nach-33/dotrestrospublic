@@ -7,14 +7,14 @@ const {
   createReview,
 } = require("../controllers/reviews-controllers");
 
-router.get("/all", getAllReviews);
+router.get("/", getAllReviews);
 
-router.get("/review-id/:id", findReviewById);
+router.get("/:id", findReviewById);
 
-router.get("/user-id/:id", findReviewByUserId);
+router.get("/user/:id", findReviewByUserId);
 
 router.get("/my", getUserReviews);
 
-router.post("/create", createReview);
+router.post("/", createReview);
 
 module.exports = router;

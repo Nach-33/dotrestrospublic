@@ -7,14 +7,14 @@ const {
   getAllOrders,
 } = require("../controllers/orders-controllers");
 
-router.post("/send", sendNewOrder);
+router.post("/", sendNewOrder);
 
-router.get("find/:id", findOrderById);
+router.get("/:id", findOrderById);
 
-router.get("/cancel/:id", cancelOrderById);
+router.delete("/:id", cancelOrderById);
 
 router.post("/payment/:id", orderPayment);
 
-router.get("/all", getAllOrders);
+router.get("/", getAllOrders);
 
 module.exports = router;
