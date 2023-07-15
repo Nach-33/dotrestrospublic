@@ -5,7 +5,9 @@ const dbconnect = require("./db/connect");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 var http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http,{cors:{
+  origin:process.env.FRONTEND_URI
+}});
 
 const authMiddleware = require("./middlewares/auth-middleware");
 
