@@ -12,6 +12,7 @@ const restaurantSchema = mongoose.Schema({
   },
   menu: [
     {
+      _id:false,
       name: {
         type: String,
         required: true,
