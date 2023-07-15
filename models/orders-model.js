@@ -64,10 +64,20 @@ const orderSchema = mongoose.Schema({
     required: true,
     default: false,
   },
-  // orderTimestamp: {
-  //   type: Date,
-  //   default: Date.now(),
-  // },
+  cancelled: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  declined: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  orderTimestamp: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Order = mongoose.model("orders", orderSchema);

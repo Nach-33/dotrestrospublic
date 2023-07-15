@@ -54,7 +54,9 @@ const cancelOrderById = async (req, res) => {
         },
       }
     );
-    const order = await Order.findByIdAndDelete(orderId);
+    const order = await Order.findById(orderId);
+    order.cancelled = true;
+    order.save;
     if (!order) res.json({ message: "Order Doesn't Exist" });
     else res.json({ message: "Order Deleted Successfully" });
   } catch (error) {
