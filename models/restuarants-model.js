@@ -20,6 +20,10 @@ const restaurantSchema = mongoose.Schema({
         type: Number,
         required: true,
       },
+      category: {
+        type: String,
+        default: "none",
+      },
     },
   ],
   ratings: {
@@ -42,14 +46,14 @@ const restaurantSchema = mongoose.Schema({
     numberOfRatings: {
       type: Number,
     },
-    default:{
-      overall:0,
-      staff:0,
-      food:0,
-      ambience:0,
-      services:0,
-      numberOfRatings:0
-    }
+    default: {
+      overall: 0,
+      staff: 0,
+      food: 0,
+      ambience: 0,
+      services: 0,
+      numberOfRatings: 0,
+    },
   },
 });
 
