@@ -20,7 +20,7 @@ const sendNewOrder = async (req, res) => {
       }
     );
       // Move this to post payment
-    global.io.sockets.emit("check", { newOrder: true });
+    global.io.sockets.emit("check", { newOrder });
 
     res.send([newOrder, user]);
     SendMail(newOrder);
