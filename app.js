@@ -11,12 +11,17 @@ const io = require("socket.io")(http,{cors:{
 
 const authMiddleware = require("./middlewares/auth-middleware");
 
-const orderRoutes = require("./routes/orders-routes");
+const ordersRoutes = require("./routes/orders-routes");
 const authRoutes = require("./routes/auth-routes");
-const userRoutes = require("./routes/users-routes");
+const usersRoutes = require("./routes/users-routes");
 const reviewsRoutes = require("./routes/reviews-routes");
-const restaurantRoutes = require("./routes/restaurants-routes");
+const restaurantsRoutes = require("./routes/restaurants-routes");
 const passportSetup = require("./config/passport-setup");
+
+
+global.io = io;
+require('./sockets/socket.io')
+
 require("dotenv").config();
 
 app.use(express.json());
@@ -39,29 +44,18 @@ app.use(
   })
 );
 
-// io.sockets.on("connection", function (socket) {
-//   console.log("Server-Client Connected!");
-// });
-global.io = io;
-
 app.use("/auth/", authRoutes);
-app.use("/orders/", authMiddleware, orderRoutes);
-app.use("/users/", authMiddleware, userRoutes);
+app.use("/orders/", authMiddleware, ordersRoutes);
+app.use("/users/", authMiddleware, usersRoutes);
 app.use("/reviews/", authMiddleware, reviewsRoutes);
-app.use("/restaurants/", restaurantRoutes);
+app.use("/restaurants/", restaurantsRoutes);
 
 const port = process.env.PORT;
 const mongoURI = process.env.MONGO_URI;
 const startServer = async () => {
   await dbconnect(mongoURI);
-  // app.listen(port, () => {
-  //   console.log(`Server listening on port ${port}`);
-  // });
   http.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
 };
 startServer();
-
-
-// module.exports = io;

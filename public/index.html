@@ -7,7 +7,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <h1>This is the connection screen</h1>
-    <script src="index.js"></script>
+    This is the test page:
+    <div id="test-div"></div>
+    <button onclick="Click()">click me</button>
 </body>
+<script>
+    const socket = io("http://localhost:4000/");
+    socket.on('response-orders',(data)=>{
+        console.log(data);
+    })
+    const Click = () =>{
+        console.log('clicked');
+        socket.emit('request-orders',{payload:"Hello Girls", code:2})
+    }
+</script>
 </html>
