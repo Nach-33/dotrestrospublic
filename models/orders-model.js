@@ -42,6 +42,10 @@ const orderSchema = mongoose.Schema({
       type: String,
       default:"none"
     },
+    advance:{
+      type: Number,
+      default:0
+    },
   },
   restaurant: {
     type: Object,
