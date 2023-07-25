@@ -15,7 +15,6 @@ const createRestaurant = async (req, res) => {
 
 const getAllRestaurants = async (req, res) => {
   try {
-    
     const restaurants = await Restaurant.find({});
     if (!restaurants) {
       return res.json({ message: "no restaurant found" });

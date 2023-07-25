@@ -20,8 +20,8 @@ const sendNewOrder = async (req, res) => {
       }
     );
 
-    res.send([newOrder, user]);
     SendMail(newOrder);
+    res.send([newOrder, user]);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -32,7 +32,8 @@ const findOrderById = async (req, res) => {
   try {
     const id = req.params.id;
     const order = await Order.findById(id);
-    res.json(order);
+    if (!order) return res.json({ message: "No Order Found!" });
+    return res.json({message:"Order Found Successfully",order});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -55,36 +56,47 @@ const cancelOrderById = async (req, res) => {
     const order = await Order.findById(orderId);
     order.cancelled = true;
     order.save();
-    if (!order) res.json({ message: "Order Doesn't Exist" });
-    else res.json({ message: "Order Deleted Successfully" });
+    if (!order) return res.json({ message: "No Order Found!" });
+    return res.json({ message: "Order Deleted Successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
 
-const orderPayment = async (req, res) => {
-  const data = await User.findOne({ username: req.user.username });
-  if (data.admin) {
-    try {
-      console.log(req.params.id);
-      const task = await Order.findByIdAndUpdate(
-        { _id: req.params.id },
-        { paid: true },
-        { new: true }
-      );
-      return res.send(task);
-    } catch (error) {
-      console.log(error.message);
-    }
-  } else res.json({ msg: "Pls go back to coustmer side" });
-};
-
 const getAllOrders = async (req, res) => {
   try {
     const ordersList = await Order.find();
-    
-    res.json(ordersList);
+    if(!ordersList) return res.json({message:"No Orders!"});
+    return res.json(ordersList);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const acceptOrder = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const order = await Order.findById(id);
+    if(!order) return res.json({message:"No Order Found!"});
+    order.accepted = true;
+    order.save();
+    return res.json({message:"Order Accepted Successfully", order});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const declineOrder = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const order = await Order.findById(id);
+    if(!order) return res.json({message:"No Order Found!"});
+    order.declined = true;
+    order.save();
+    return res.json({message:"Order Declined Successfully", order});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -95,6 +107,7 @@ module.exports = {
   sendNewOrder,
   findOrderById,
   cancelOrderById,
-  orderPayment,
   getAllOrders,
+  acceptOrder,
+  declineOrder,
 };

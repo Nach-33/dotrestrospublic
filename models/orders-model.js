@@ -74,6 +74,11 @@ const orderSchema = mongoose.Schema({
     required: true,
     default: false,
   },
+  accepted: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   orderTimestamp: {
     type: Date,
     default: Date.now(),
