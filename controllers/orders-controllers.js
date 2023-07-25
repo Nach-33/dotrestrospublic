@@ -20,7 +20,8 @@ const sendNewOrder = async (req, res) => {
       }
     );
 
-    SendMail(newOrder);
+    // SendMail(newOrder);
+    global.io.emit('check',{newOrder});
     res.send([newOrder, user]);
   } catch (error) {
     console.log(error);

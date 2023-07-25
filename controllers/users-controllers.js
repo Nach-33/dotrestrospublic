@@ -11,7 +11,7 @@ const getUserProfile = async (req, res) => {
     });
     // Letting all the promises get fulfilled
     userData.orders = await Promise.all(ordersList);
-    res.json(userData);
+    return res.json(userData);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
