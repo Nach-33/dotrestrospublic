@@ -6,9 +6,9 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 var http = require("http").createServer(app);
 const io = require("socket.io")(http, {
-  cors: {
-    origin: "http://localhost:3000",
-  },
+cors: {
+origin: "http://localhost:3000",
+},
 });
 
 const authMiddleware = require("./middlewares/auth-middleware");
