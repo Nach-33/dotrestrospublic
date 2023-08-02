@@ -3,8 +3,13 @@ const jwt = require("jsonwebtoken");
 
 const authenticate = async (req, res, next) => {
   console.log('Reached Here');
+  if(req.headers.authorization == null || req.headers.authorization == undefined){
+    return res.redirect("/auth/google");
+  }
+
   const token = (req.headers.authorization.split(':')[1]).split('=')[1];
   console.log(token);
+  
   if (token == null || token == undefined) {
     console.log('Here Also');
     return res.redirect("/auth/google");
