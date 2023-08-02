@@ -1,3 +1,4 @@
+const User = require('../models/users-model');
 const Review = require("../models/reviews-models");
 const Restaurant = require("../models/restuarants-model");
 
@@ -35,7 +36,8 @@ const findReviewByUserId = async (req, res) => {
 
 const getUserReviews = async (req, res) => {
   try {
-    const { username, id } = req.user;
+    const user = await User.findById(req.user.id)
+    const { username, id } = user;
     const reviewList = await Review.find({
       userDetails: { username: username, userId: id },
     });
@@ -48,7 +50,7 @@ const getUserReviews = async (req, res) => {
 
 const createReview = async (req, res) => {
   try {
-    const user = req.user;
+    const user = await User.findById(req.user.id);
     const reviewDetails = req.body;
 
     const currentRatings = (

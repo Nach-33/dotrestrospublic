@@ -6,7 +6,7 @@ const { SendMail } = require("../nodemailer");
 const sendNewOrder = async (req, res) => {
   try {
     //Save a booking to the DB
-    const user = req.user;
+    const user = await User.findById(req.user.id);
     const orderDetails = req.body;
     orderDetails.userId = user.id;
     const newOrder = await Order.create(orderDetails);

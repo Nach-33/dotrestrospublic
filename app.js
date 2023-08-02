@@ -26,7 +26,6 @@ require("dotenv").config();
 app.use(express.json());
 app.use(express.static("public"));
 
-const frontendLink = process.env.FRONTEND_URI;
 // app.enable("trust proxy");
 // app.use(
 //   cors({
@@ -34,6 +33,7 @@ const frontendLink = process.env.FRONTEND_URI;
 //     origin: 'http://localhost:3000',
 //   })
 // );
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -65,4 +65,5 @@ const startServer = async () => {
     console.log(`Server listening on port ${port}`);
   });
 };
+
 startServer();

@@ -1,11 +1,18 @@
 const Order = require("../models/orders-model");
+const User = require('../models/users-model')
 
 const getUserProfile = async (req, res) => {
   try {
-    const { username, orders } = req.user;
+    const user = await User.findById(req.user.id)
+    const { username, orders } = user;
     const userData = { username };
     const ordersList = [];
     //Fetching complete order details from their ids for a user
+    if (orders === [] || orders== undefined) {
+      userData.orders = [];
+      return res.json(userData);
+    }
+
     orders.forEach((order) => {
       ordersList.push(Order.findById(order.id));
     });
