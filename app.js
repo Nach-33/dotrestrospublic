@@ -4,9 +4,9 @@ const cors = require("cors");
 const dbconnect = require("./db/connect");
 var http = require("http").createServer(app);
 const io = require("socket.io")(http, {
-cors: {
-origin: "http://localhost:3000",
-},
+  cors: {
+    origin: "http://localhost:3000",
+  },
 });
 
 const authMiddleware = require("./middlewares/auth-middleware");
@@ -27,13 +27,28 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const frontendLink = process.env.FRONTEND_URI;
-app.enable("trust proxy");
-app.use(
-  cors({
-    credentials: true,
-    origin: frontendLink,
-  })
-);
+// app.enable("trust proxy");
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: 'http://localhost:3000',
+//   })
+// );
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  next();
+});
 
 app.use("/auth/", authRoutes);
 app.use("/orders/", authMiddleware, ordersRoutes);

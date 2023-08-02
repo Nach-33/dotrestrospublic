@@ -57,9 +57,7 @@ const getToken = async (req, res) => {
         username: googleUser.name,
         googleId: googleUser.id,
       });
-      return res
-        .cookie("token", token)
-        .json({ message: "successful login and jwt token sent" });
+      return res.redirect(`${process.env.FRONTEND_URI}/logged/code=${token}`);
     }
     const user = await User.create({
       email: googleUser.email,
@@ -72,12 +70,11 @@ const getToken = async (req, res) => {
       username: googleUser.name,
       googleId: googleUser.id,
     });
-    return res.cookie("token", token).redirect(process.env.FRONTEND_URI);
+    return res.redirect(`${process.env.FRONTEND_URI}/logged/code=${token}`);
   } catch (error) {
     console.log(error);
     res.json({ message: error.message });
   }
-  //res.redirect("http://localhost:3000/welcome");
 };
 
 module.exports = getToken;
