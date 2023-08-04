@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { orderPayment } = require("../controllers/payments-controllers");
 const ccavReqHandler = require("../config/ccavRequestHandler")
-const ccavResHandler = require("../config/ccavResponseHandler.js");
+const ccavResHandler = require("../config/ccavResponseHandler");
 
 router.post("/:id", orderPayment);
 

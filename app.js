@@ -55,7 +55,7 @@ app.use("/orders/", authMiddleware, ordersRoutes);
 app.use("/users/", authMiddleware, usersRoutes);
 app.use("/reviews/", authMiddleware, reviewsRoutes);
 app.use("/restaurants/", restaurantsRoutes);
-app.use("/payments/", authMiddleware, paymentsRoutes);
+app.use("/payments/", paymentsRoutes);
 
 const port = process.env.PORT;
 const mongoURI = process.env.MONGO_URI;
