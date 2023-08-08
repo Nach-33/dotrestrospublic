@@ -9,6 +9,7 @@ const sendNewOrder = async (req, res) => {
     const user = await User.findById(req.user.id);
     const orderDetails = req.body;
     orderDetails.userId = user.id;
+    orderDetails.customerDetails.emailId = user.email;
     const newOrder = await Order.create(orderDetails);
     //Add the order id to the user's array
     await User.findOneAndUpdate(
@@ -21,7 +22,6 @@ const sendNewOrder = async (req, res) => {
     );
 
     // SendMail(newOrder);
-    global.io.emit('check',{newOrder});
     res.send([newOrder, user]);
   } catch (error) {
     console.log(error);

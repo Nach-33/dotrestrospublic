@@ -6,7 +6,8 @@ const orderPayment = async (req, res) => {
     const order = await Order.findById(id);
     if (!order) return res.json({ message: "No Order Found!" });
     order.paid = true;
-    order.save();
+    await order.save();
+    global.io.emit('check',{order});
     return res.json({ message: "Order Accepted Successfully", order });
   } catch (error) {
     console.log(error);

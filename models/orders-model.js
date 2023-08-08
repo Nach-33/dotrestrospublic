@@ -19,6 +19,11 @@ const orderSchema = mongoose.Schema({
       required: true,
       trim: true,
     },
+    emailId: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   bookingDetails: {
     date: {

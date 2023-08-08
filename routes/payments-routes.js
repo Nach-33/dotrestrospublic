@@ -5,6 +5,10 @@ const ccavResHandler = require("../config/ccavResponseHandler");
 
 router.post("/paid/:id", orderPayment);
 
+router.post("/cancel", (req,res)=>{
+  res.redirect('');
+});
+
 router.post("/ccavRequestHandler", function (request, response) {
   ccavReqHandler.postReq(request, response);
 });
