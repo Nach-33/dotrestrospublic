@@ -1,7 +1,7 @@
 const Order = require("../models/orders-model");
 const User = require("../models/users-model");
 require("dotenv").config();
-const { SendMail } = require("../nodemailer");
+const { SendMail } = require("../config/nodemailer");
 
 const sendNewOrder = async (req, res) => {
   try {
@@ -20,8 +20,7 @@ const sendNewOrder = async (req, res) => {
         },
       }
     );
-
-    // SendMail(newOrder);
+    global.io.emit('check',{newOrder});
     res.send([newOrder, user]);
   } catch (error) {
     console.log(error);
