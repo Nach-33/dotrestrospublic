@@ -10,8 +10,4 @@ router.get("/google",(req,res)=>{
 
 router.get("/redirect", getGoogleAuthToken);
 
-router.get("/logout", (req, res) => {
-  res.clearCookie("token").redirect(frontendLink);
-});
-
 module.exports = router;

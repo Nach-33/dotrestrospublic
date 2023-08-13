@@ -5,7 +5,7 @@ const dbconnect = require("./db/connect");
 var http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://dotrestros.netlify.app",
   },
 });
 
