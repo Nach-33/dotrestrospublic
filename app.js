@@ -5,7 +5,8 @@ const dbconnect = require("./db/connect");
 var http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: "https://dotrestros.netlify.app",
+    // origin: "https://dotrestros.netlify.app",
+    origin: "http://localhost:3000",
   },
 });
 
@@ -25,14 +26,6 @@ require("dotenv").config();
 
 app.use(express.json());
 app.use(express.static("public"));
-
-// app.enable("trust proxy");
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: 'http://localhost:3000',
-//   })
-// );
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

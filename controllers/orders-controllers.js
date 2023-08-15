@@ -11,6 +11,7 @@ const sendNewOrder = async (req, res) => {
     orderDetails.userId = user.id;
     orderDetails.customerDetails.emailId = user.email;
     const newOrder = await Order.create(orderDetails);
+    console.log('here');
     //Add the order id to the user's array
     await User.findOneAndUpdate(
       { _id: user.id },
@@ -20,8 +21,11 @@ const sendNewOrder = async (req, res) => {
         },
       }
     );
-    global.io.emit('check',{newOrder});
+
+    global.io.emit('newOrder',{newOrder});
+    
     res.send([newOrder, user]);
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -57,6 +61,8 @@ const cancelOrderById = async (req, res) => {
     order.cancelled = true;
     order.save();
     if (!order) return res.json({ message: "No Order Found!" });
+
+    global.io.emit('cancelOrder',{newOrder});
     return res.json({ message: "Order Deleted Successfully" });
   } catch (error) {
     console.log(error);

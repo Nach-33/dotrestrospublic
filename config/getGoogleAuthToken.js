@@ -15,7 +15,7 @@ const getToken = async (req, res) => {
       grant_type: "authorization_code",
     };
     const qs = new URLSearchParams(values);
-    console.log(qs.toString());
+    // console.log(qs.toString());
     const { id_token, access_token } = await axios
       .post(url, qs.toString(), {
         headers: {
