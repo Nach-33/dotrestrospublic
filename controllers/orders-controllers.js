@@ -58,11 +58,12 @@ const cancelOrderById = async (req, res) => {
       }
     );
     const order = await Order.findById(orderId);
-    order.cancelled = true;
-    order.save();
     if (!order) return res.json({ message: "No Order Found!" });
 
-    global.io.emit('cancelOrder',{newOrder});
+    order.cancelled = true;
+    order.save();
+
+    global.io.emit('cancelOrder',{order});
     return res.json({ message: "Order Deleted Successfully" });
   } catch (error) {
     console.log(error);
