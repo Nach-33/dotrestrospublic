@@ -12,7 +12,8 @@
     <button onclick="Click()">click me</button>
 </body>
 <script>
-    const socket = io("http://localhost:4000/");
+    // const socket = io("http://localhost:4000/");
+    const socket = io("https://dotrestros.com/");
     socket.on('response-orders',(data)=>{
         console.log(data);
     })
