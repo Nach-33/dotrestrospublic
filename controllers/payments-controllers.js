@@ -8,7 +8,7 @@ const orderPayment = async (req, res) => {
     order.paid = true;
     await order.save();
     global.io.emit('newOrder',{order});
-    return res.redirect(`${FRONTEND_URI}/myorders`);
+    return res.redirect(`${process.env.FRONTEND_URI}/myorders`);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
