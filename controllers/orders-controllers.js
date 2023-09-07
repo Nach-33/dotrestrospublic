@@ -22,7 +22,7 @@ const sendNewOrder = async (req, res) => {
       }
     );
 
-    global.io.emit('newOrder',{newOrder});
+    // global.io.emit('newOrder',{newOrder});
     
     res.send([newOrder, user]);
 
@@ -48,15 +48,15 @@ const cancelOrderById = async (req, res) => {
   // Delete an order from DB
   try {
     const orderId = req.params.id;
-    const user = req.user;
-    await User.findOneAndUpdate(
-      { _id: user.id },
-      {
-        $pull: {
-          orders: { id: orderId },
-        },
-      }
-    );
+    // const user = req.user;
+    // await User.findOneAndUpdate(
+    //   { _id: user.id },
+    //   {
+    //     $pull: {
+    //       orders: { id: orderId },
+    //     },
+    //   }
+    // );
     const order = await Order.findById(orderId);
     if (!order) return res.json({ message: "No Order Found!" });
 
