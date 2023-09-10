@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const authMiddleware = require("../middlewares/auth-middleware");
 const {
   getAllReviews,
   findReviewById,
@@ -15,6 +16,6 @@ router.get("/user/:id", findReviewByUserId);
 
 router.get("/my", getUserReviews);
 
-router.post("/", createReview);
+router.post("/", authMiddleware, createReview);
 
 module.exports = router;

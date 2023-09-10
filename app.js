@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 app.use("/auth/", authRoutes);
 app.use("/orders/", authMiddleware, ordersRoutes);
 app.use("/users/", authMiddleware, usersRoutes);
-app.use("/reviews/", authMiddleware, reviewsRoutes);
+app.use("/reviews/", reviewsRoutes);
 app.use("/restaurants/", restaurantsRoutes);
 app.use("/payments/", paymentsRoutes);
 
