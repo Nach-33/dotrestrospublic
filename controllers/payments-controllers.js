@@ -7,8 +7,7 @@ const orderPayment = async (req, res) => {
     if (!order) return res.json({ message: "No Order Found!" });
     order.paid = true;
     await order.save();
-    const socketName  = 'newOrder'+order.restaurant.code;
-    global.io.emit(socketName,{order});
+    global.io.emit('newOrder',{order});
     return res.redirect(`${process.env.FRONTEND_URI}/myorders`);
   } catch (error) {
     console.log(error);
