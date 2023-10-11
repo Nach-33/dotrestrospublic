@@ -31,6 +31,10 @@ const orderSchema = mongoose.Schema({
       required: true,
       default: Date.now(),
     },
+    dateObj:{
+      type: Date,
+      required:true
+    },
     time: {
       type: String,
       required: true,
