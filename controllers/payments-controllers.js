@@ -1,5 +1,5 @@
 const Order = require("../models/orders-model");
-const Restaurant = require("../models/restaurants-model");
+const Restaurant = require("../models/restuarants-model");
 
 const orderPayment = async (req, res) => {
   try {
