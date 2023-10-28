@@ -10,6 +10,10 @@ const restaurantSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  advancePaid: {
+    type: Number,
+    default:0,
+  },
   menu: [
     {
       _id:false,
