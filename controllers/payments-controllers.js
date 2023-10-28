@@ -1,4 +1,5 @@
 const Order = require("../models/orders-model");
+const Restaurant = require("../models/restaurants-model");
 
 const orderPayment = async (req, res) => {
   try {
@@ -7,6 +8,9 @@ const orderPayment = async (req, res) => {
     if (!order) return res.json({ message: "No Order Found!" });
     order.paid = true;
     await order.save();
+    const thisRestaurant = Restaurant.find({code:order.restaurant.code});
+    thisRestaurant.advancePaid += order.bookingDetails.advance;
+    await thisRestaurant.save();
     global.io.emit('newOrder',{order});
     return res.redirect(`${process.env.FRONTEND_URI}/myorders`);
   } catch (error) {
