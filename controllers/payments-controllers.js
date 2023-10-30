@@ -9,8 +9,9 @@ const orderPayment = async (req, res) => {
     order.paid = true;
     await order.save();
     const thisRestaurant = Restaurant.find({code:order.restaurant.code});
-    thisRestaurant.advancePaid += order.bookingDetails.advance;
-    await thisRestaurant.save();
+    console.log(thisRestaurant);
+    // thisRestaurant.advancePaid += order.bookingDetails.advance;
+    // await thisRestaurant.save();
     global.io.emit('newOrder',{order});
     return res.redirect(`${process.env.FRONTEND_URI}/myorders`);
   } catch (error) {
