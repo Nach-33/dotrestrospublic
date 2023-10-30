@@ -8,7 +8,7 @@ const orderPayment = async (req, res) => {
     if (!order) return res.json({ message: "No Order Found!" });
     order.paid = true;
     await order.save();
-    const thisRestaurant = Restaurant.findOne({code:order.restaurant.code});
+    const thisRestaurant = Restaurant.findOne({code: 4});
     console.log('Sep');
     console.log('This: ',thisRestaurant);
     // thisRestaurant.advancePaid += order.bookingDetails.advance;
