@@ -8,11 +8,11 @@ const orderPayment = async (req, res) => {
     if (!order) return res.json({ message: "No Order Found!" });
     order.paid = true;
     await order.save();
-    const thisRestaurant = Restaurant.findOne({code: 4});
+    const thisRestaurant = await Restaurant.findOne({code: order.restaurant.code});
     console.log('Sep');
     console.log('This: ',thisRestaurant);
-    // thisRestaurant.advancePaid += order.bookingDetails.advance;
-    // await thisRestaurant.save();
+    thisRestaurant.advancePaid += order.bookingDetails.advance;
+    await thisRestaurant.save();
     global.io.emit('newOrder',{order});
     return res.redirect(`${process.env.FRONTEND_URI}/myorders`);
   } catch (error) {
