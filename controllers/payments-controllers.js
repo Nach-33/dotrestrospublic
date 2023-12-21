@@ -9,8 +9,6 @@ const orderPayment = async (req, res) => {
     order.paid = true;
     await order.save();
     const thisRestaurant = await Restaurant.findOne({code: order.restaurant.code});
-    console.log('Sep');
-    console.log('This: ',thisRestaurant);
     thisRestaurant.advancePaid += order.bookingDetails.advance;
     await thisRestaurant.save();
     global.io.emit('newOrder',{order});

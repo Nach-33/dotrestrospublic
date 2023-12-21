@@ -24,7 +24,7 @@ const getToken = async (req, res) => {
       })
       .then((res) => res.data)
       .catch((error) => {
-        console.error(`Failed to fetch auth tokens`);
+        // console.error(`Failed to fetch auth tokens`);
         return res.json({ message: error.message });
       });
 
@@ -41,7 +41,7 @@ const getToken = async (req, res) => {
       )
       .then((res) => res.data)
       .catch((error) => {
-        console.error(`Failed to fetch user`);
+        // console.error(`Failed to fetch user`);
         return res.json({ message: error.message });
       });
     // console.log(googleUser);

@@ -11,7 +11,7 @@ const sendNewOrder = async (req, res) => {
     orderDetails.userId = user.id;
     orderDetails.customerDetails.emailId = user.email;
     const newOrder = await Order.create(orderDetails);
-    console.log('here');
+    // console.log('here');
     //Add the order id to the user's array
     await User.findOneAndUpdate(
       { _id: user.id },
